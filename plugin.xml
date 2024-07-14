@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-document-provider"
+    version="1.0.0">
+
+    <name>DocumentProvider</name>
+
+    <engines>
+        <engine name="cordova" version=">=6.1.0" />
+    </engines>
+
+    <asset src="www/documentProvider.js" target="js/documentProvider.js" />
+
+    <js-module src="www/documentProvider.js" name="documentProvider">
+        <clobbers target="documentProvider" />
+    </js-module>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="documentProvider">
+                <param name="android-package" value="com.nemo.documentProvider.DocumentProviderPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/uses-sdk">
+            <provider
+                android:name="com.nemo.documentProvider.DocumentProvider"
+                android:authorities="com.nemo.documentProvider.documents"
+                android:grantUriPermissions="true"
+                android:exported="true"
+                android:permission="android.permission.MANAGE_DOCUMENTS">
+                <intent-filter>
+                    <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+                </intent-filter>
+            </provider>
+        </config-file>
+
+        <source-file src="src/DocumentProvider.java" target-dir="src/com/nemo/documentProvider/" />
+        <source-file src="src/DocumentProviderPlugin.java" target-dir="src/com/nemo/documentProvider/" />
+    </platform>
+</plugin>
