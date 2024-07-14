@@ -1,0 +1,1 @@
+# cordova-document-provider
